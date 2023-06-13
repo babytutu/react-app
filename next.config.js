@@ -2,8 +2,8 @@
 const nextConfig = {
   output: 'export',
   basePath: '/react-app',
+  trailingSlash: true,
   experimental: {
-    trailingSlash: true,
     appDir: true,
   },
 }
