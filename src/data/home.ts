@@ -4,6 +4,10 @@ export const home = [
     to: '/',
   },
   {
+    title: 'MacApp',
+    to: '/macapp',
+  },
+  {
     title: 'Emoji',
     to: '/emoji',
   },

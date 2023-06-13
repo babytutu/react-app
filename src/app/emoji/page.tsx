@@ -49,7 +49,7 @@ export default function Page() {
             </div>
           </li>
           <div className="flex flex-wrap px-3">
-            {Array.from(new Set(emoji[item.name])).map((i: any) => (
+            {emoji[item.name].map((i: any) => (
               <span key={i} className="p-1" dangerouslySetInnerHTML={{ __html:  i }}>
               </span>
             ))}

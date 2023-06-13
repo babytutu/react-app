@@ -11,7 +11,7 @@ export default async function Example() {
             </div>
           </div>
           <div className="sm:flex sm:flex-col sm:items-end">
-            <p className="text-sm leading-6 text-gray-900">{item.published}</p>
+            <p className="text-xs leading-6 text-gray-900">{item.published}</p>
           </div>
         </li>
       ))}
