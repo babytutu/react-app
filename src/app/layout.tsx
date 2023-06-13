@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <header className="bg-white">
-          <nav className="mx-auto flex items-center justify-between p-6">
+          <nav className="mx-auto flex items-center justify-between p-5">
             {home.map((home) => (
               <Link key={home.title} className="text-gray-900" href={home.to}>{home.title}</Link>
             ))}

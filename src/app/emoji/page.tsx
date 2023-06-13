@@ -1,55 +1,49 @@
 import { emoji } from "@/data/emoji"
+import Item from '@/components/item'
 
 const category = [
   {
-    label: '笑脸和人',
-    name: 'smileys and people',
+    title: '笑脸和人',
+    content: 'smileys and people',
   },
   {
-    label: '动物和自然',
-    name: 'animals and nature',
+    title: '动物和自然',
+    content: 'animals and nature',
   },
   {
-    label: '食物和饮料',
-    name: 'food and drink',
+    title: '食物和饮料',
+    content: 'food and drink',
   },
   {
-    label: '旅行和地方',
-    name: 'travel and places',
+    title: '旅行和地方',
+    content: 'travel and places',
   },
   {
-    label: '活动',
-    name: 'activities',
+    title: '活动',
+    content: 'activities',
   },
   {
-    label: '对象',
-    name: 'objects',
+    title: '对象',
+    content: 'objects',
   },
   {
-    label: '符号和标志',
-    name: 'symbols',
+    title: '符号和标志',
+    content: 'symbols',
   },
   {
-    label: '旗帜和字母',
-    name: 'flags',
+    title: '旗帜和字母',
+    content: 'flags',
   },
 ]
 
-export default function Page() {
+export default function Emoji() {
   return (
-    <ul role="list" className="divide-y divide-gray-100">
+    <ul className="divide-y divide-gray-100 px-5">
       {category.map(item => (
-        <div key={item.label}>
-          <li className="flex justify-between px-5 py-1">
-            <div className="flex gap-x-4">
-              <div className="min-w-0 flex-auto">
-                <p className="text-sm font-semibold leading-6 text-gray-900">{item.label}</p>
-                <p className="mt-1 truncate text-xs leading-5 text-gray-500">{item.name}</p>
-              </div>
-            </div>
-          </li>
-          <div className="flex flex-wrap px-3">
-            {emoji[item.name].map((i: any) => (
+        <div key={item.content}>
+          <Item item={item} />
+          <div className="flex flex-wrap mb-3">
+            {emoji[item.content].map((i: any) => (
               <span key={i} className="p-1" dangerouslySetInnerHTML={{ __html:  i }}>
               </span>
             ))}
