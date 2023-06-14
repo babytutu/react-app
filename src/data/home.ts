@@ -1,4 +1,4 @@
-export const home = [
+export const home: any[] = [
   {
     title: 'Home',
     to: '/',

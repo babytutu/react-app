@@ -1,6 +1,6 @@
 import './globals.css'
-import Link from 'next/link'
 import { home } from '@/data/home'
+import { Navigation } from '@/components/navigation'
 
 export const metadata = {
   title: 'Create Next App',
@@ -14,15 +14,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className="flex flex-col">
         <header className="bg-white">
-          <nav className="mx-auto flex items-center justify-between p-5">
-            {home.map((home) => (
-              <Link key={home.title} className="text-gray-900" href={home.to}>{home.title}</Link>
-            ))}
-          </nav>
+          <Navigation navLinks={home} />
         </header>
-      {children}
+        <div className="overflow-auto">{children}</div>
       </body>
     </html>
   )
