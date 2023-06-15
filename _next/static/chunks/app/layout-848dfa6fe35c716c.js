@@ -1,9 +1,0 @@
-(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[185],{6114:function(e,t,r){Promise.resolve().then(r.bind(r,327)),Promise.resolve().then(r.t.bind(r,6356,23))},327:function(e,t,r){"use strict";r.r(t),r.d(t,{Navigation:function(){return i}});var n=r(9268),o=r(6008),s=r(6395),c=r.n(s);function i(e){let{navLinks:t}=e,r=(0,o.usePathname)();return(0,n.jsx)("nav",{className:"mx-auto flex items-center justify-between px-5 py-3",children:t.map(e=>{let t=r.replace(/\//g,"").replace("react-app","")===e.to.replace(/\//g,"");return(0,n.jsx)(c(),{className:t?"text-blue-600":"text-black-600",href:e.to,children:e.title},e.title)})})}},6356:function(){},3177:function(e,t,r){"use strict";/**
- * @license React
- * react-jsx-runtime.production.min.js
- *
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */var n=r(6006),o=Symbol.for("react.element"),s=(Symbol.for("react.fragment"),Object.prototype.hasOwnProperty),c=n.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner,i={key:!0,ref:!0,__self:!0,__source:!0};function u(e,t,r){var n,u={},a=null,f=null;for(n in void 0!==r&&(a=""+r),void 0!==t.key&&(a=""+t.key),void 0!==t.ref&&(f=t.ref),t)s.call(t,n)&&!i.hasOwnProperty(n)&&(u[n]=t[n]);if(e&&e.defaultProps)for(n in t=e.defaultProps)void 0===u[n]&&(u[n]=t[n]);return{$$typeof:o,type:e,key:a,ref:f,props:u,_owner:c.current}}t.jsx=u,t.jsxs=u},9268:function(e,t,r){"use strict";e.exports=r(3177)},6395:function(e,t,r){e.exports=r(8920)},6008:function(e,t,r){e.exports=r(3027)}},function(e){e.O(0,[920,253,488,744],function(){return e(e.s=6114)}),_N_E=e.O()}]);
