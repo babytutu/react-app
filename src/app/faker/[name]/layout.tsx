@@ -1,18 +1,9 @@
-import Link from 'next/link'
+'use client'
+
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { Tabs, SafeArea } from 'antd-mobile'
 import { resource } from '@/data/apis'
-
-export function generateMetadata(
-  { params }: {
-    params: {
-      name: string
-    }
-  },
-) {
-
-  return {
-    title: params.name,
-  }
-}
 
 export default function Demo({
   children,
@@ -23,15 +14,22 @@ export default function Demo({
       name: string
     }
   }) {
+  const router = useRouter()
+  const [activeKey, setActiveKey] = useState(params.name)
+
+  function changeKey(key: string) {
+    setActiveKey(key)
+    router.push(`/faker/${key}`)
+  }
+
   return (
     <>
-      <header className="bg-white">
-        <nav className="mx-auto flex items-center justify-between py-3 px-5">
-          {resource.map((resource) => (
-            <Link key={resource.title} className={params.name === resource.title ? 'text-blue-600' : 'text-gray-600'} href={`/faker/${resource.title}`}>{resource.title}</Link>
-          ))}
-        </nav>
-      </header>
+      <Tabs activeKey={activeKey} onChange={key => changeKey(key)}>
+        {resource.map((link: any) => (
+          <Tabs.Tab key={link.title} title={link.title}>
+          </Tabs.Tab>
+        ))}
+      </Tabs>
       <div className='overflow-auto'>
         {children}
       </div>

@@ -1,11 +1,11 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Item from '@/components/item'
+import { List } from 'antd-mobile'
 
 export default function Page({ params }: { params: { name: string } }) {
   const [data, setData] = useState([])
-  const [isLoading, setLoading] = useState(false)
+  const [isLoading, setLoading] = useState(true)
   useEffect(() => {
     setLoading(true)
     fetch(
@@ -28,10 +28,14 @@ export default function Page({ params }: { params: { name: string } }) {
       })
   }, [])
   return (
-    <ul className="divide-y divide-gray-100 px-5">
+    <List>
       {isLoading && <p>Loading...</p>}
-      {data && data.map((item: any) => <Item key={item.id} item={item} />)}
+      {data && data.map((item: any) =>
+        <List.Item key={item.id} description={item.content} title={item.more}>
+          {item.title}
+        </List.Item>
+      )}
       {!isLoading && !data.length && <p>暂无数据</p>}
-    </ul>
+    </List>
   )
 }
