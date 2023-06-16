@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { List } from 'antd-mobile'
+import { Common } from '@/components/common'
 
 export default function Page({ params }: { params: { name: string } }) {
   const [data, setData] = useState([])
@@ -29,13 +30,13 @@ export default function Page({ params }: { params: { name: string } }) {
   }, [])
   return (
     <List>
-      {isLoading && <p>Loading...</p>}
-      {data && data.map((item: any) =>
-        <List.Item key={item.id} description={item.content} title={item.more}>
-          {item.title}
-        </List.Item>
-      )}
-      {!isLoading && !data.length && <p>暂无数据</p>}
+      <Common loading={isLoading} isEmpty={data.length === 0} />
+      {data &&
+        data.map((item: any) => (
+          <List.Item key={item.id} description={item.content} title={item.more}>
+            {item.title}
+          </List.Item>
+        ))}
     </List>
   )
 }

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { List } from 'antd-mobile'
+import { Common } from '@/components/common'
 
 export default function Macapp() {
   const [data, setData] = useState([])
@@ -38,13 +39,13 @@ export default function Macapp() {
 
   return (
     <List>
-      {isLoading && <List.Item>Loading...</List.Item>}
-      {data && data.map((item: any) =>
-        <List.Item key={item.id} description={item.content} title={item.more}>
-          {item.title}
-        </List.Item>
-      )}
-      {!isLoading && !data.length && <List.Item>暂无数据</List.Item>}
+      <Common loading={isLoading} isEmpty={data.length === 0} />
+      {data &&
+        data.map((item: any) => (
+          <List.Item key={item.id} description={item.content} title={item.more}>
+            {item.title}
+          </List.Item>
+        ))}
     </List>
   )
 }

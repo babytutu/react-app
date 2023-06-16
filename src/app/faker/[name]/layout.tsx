@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Tabs, SafeArea } from 'antd-mobile'
+import { Tabs } from 'antd-mobile'
 import { resource } from '@/data/apis'
 
 export default function Demo({
