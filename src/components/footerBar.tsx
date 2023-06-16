@@ -7,23 +7,29 @@ import {
   ContentOutline,
   UnorderedListOutline,
   SmileOutline,
+  FillinOutline,
 } from 'antd-mobile-icons'
 
 const home: any[] = [
   {
     title: 'Home',
     to: '/',
-    icon: <ContentOutline />
+    icon: <ContentOutline />,
   },
   {
     title: 'MacApp',
     to: '/macapp/',
-    icon: <UnorderedListOutline />
+    icon: <UnorderedListOutline />,
   },
   {
     title: 'Emoji',
     to: '/emoji/',
-    icon: <SmileOutline />
+    icon: <SmileOutline />,
+  },
+  {
+    title: 'Form',
+    to: '/form/',
+    icon: <FillinOutline />,
   },
   // {
   //   title: 'faker',
