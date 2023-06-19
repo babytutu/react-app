@@ -1,4 +1,4 @@
-import { Empty, DotLoading } from 'antd-mobile'
+import { ErrorBlock, DotLoading, Space } from 'antd-mobile'
 
 export function Common({
   loading,
@@ -8,13 +8,9 @@ export function Common({
   isEmpty: boolean
 }) {
   return (
-    <div>
-      {loading && (
-        <div className="p-3">
-          <DotLoading />
-        </div>
-      )}
-      {!loading && isEmpty && <Empty />}
-    </div>
+    <>
+      {loading && <DotLoading />}
+      {!loading && isEmpty && <ErrorBlock status="empty" />}
+    </>
   )
 }

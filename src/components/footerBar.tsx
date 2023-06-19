@@ -23,11 +23,6 @@ const home: any[] = [
     icon: <UnorderedListOutline />,
   },
   {
-    title: 'Emoji',
-    to: '/emoji/',
-    icon: <SmileOutline />,
-  },
-  {
     title: 'Form',
     to: '/form/',
     icon: <FillinOutline />,

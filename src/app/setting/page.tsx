@@ -2,7 +2,7 @@
 
 import { useAppSelector, useAppDispatch } from '@/app/hooks'
 import { setName, setAge } from '@/store/form/FormSlice'
-import { Form, Button, Input, Dialog, Stepper } from 'antd-mobile'
+import { Form, Button, Input, Toast, Stepper } from 'antd-mobile'
 
 export default function Page() {
   const state = useAppSelector((state) => state.form)
@@ -10,9 +10,7 @@ export default function Page() {
   const [form] = Form.useForm()
 
   const onFinishFailed = () => {
-    Dialog.alert({
-      content: '输入验证失败',
-    })
+    Toast.show('输入验证失败')
   }
 
   const onFinish = async () => {
@@ -20,9 +18,7 @@ export default function Page() {
     const { name, age } = values
     dispatch(setName(name))
     dispatch(setAge(age))
-    Dialog.alert({
-      content: '设置成功',
-    })
+    Toast.show('设置成功')
   }
 
   return (

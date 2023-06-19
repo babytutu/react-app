@@ -38,14 +38,21 @@ export default function Macapp() {
   }, [])
 
   return (
-    <List>
+    <>
       <Common loading={isLoading} isEmpty={data.length === 0} />
-      {data &&
-        data.map((item: any) => (
-          <List.Item key={item.id} description={item.content} title={item.more}>
-            {item.title}
-          </List.Item>
-        ))}
-    </List>
+      {data.length > 0 && (
+        <List>
+          {data.map((item: any) => (
+            <List.Item
+              key={item.id}
+              description={item.content}
+              title={item.more}
+            >
+              {item.title}
+            </List.Item>
+          ))}
+        </List>
+      )}
+    </>
   )
 }

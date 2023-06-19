@@ -5,6 +5,7 @@ import {
   Button,
   Input,
   Dialog,
+  Toast,
   Stepper,
   List,
   SwipeAction,
@@ -14,6 +15,7 @@ import { http } from '@/utils/http'
 import { useEffect, useState } from 'react'
 
 import { useAppSelector } from '@/app/hooks'
+import { Common } from '@/components/common'
 
 export default function Pages() {
   const state = useAppSelector((state) => state.form)
@@ -22,6 +24,7 @@ export default function Pages() {
   const [loading, setLoading] = useState(false)
   const [form] = Form.useForm()
   const [id, setId] = useState('')
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     getItem()
@@ -31,6 +34,7 @@ export default function Pages() {
     http('https://87tetwnrqe.hk.aircode.run/getItem').then(
       ({ success, result }) => {
         if (success) setList(result || [])
+        setIsLoading(false)
       }
     )
   }
@@ -49,9 +53,7 @@ export default function Pages() {
     )
     setLoading(false)
     if (success) {
-      Dialog.alert({
-        content: '操作成功',
-      })
+      Toast.show('操作成功')
       getItem()
     }
     setId('')
@@ -59,9 +61,7 @@ export default function Pages() {
   }
 
   const onFinishFailed = () => {
-    Dialog.alert({
-      content: '输入验证失败',
-    })
+    Toast.show('输入验证失败')
   }
 
   return (
@@ -102,9 +102,10 @@ export default function Pages() {
           <Stepper max={999} />
         </Form.Item>
       </Form>
-      <List>
-        {list &&
-          list.map((item: any) => (
+      <Common loading={isLoading} isEmpty={list.length === 0} />
+      {list.length > 0 && (
+        <List>
+          {list.map((item: any) => (
             <SwipeAction
               key={item._id}
               rightActions={[
@@ -135,9 +136,7 @@ export default function Pages() {
                           id: item._id,
                         }).then((res) => {
                           if (res.success) {
-                            Dialog.alert({
-                              content: '操作成功',
-                            })
+                            Toast.show('操作成功')
                             getItem()
                           }
                         })
@@ -150,7 +149,8 @@ export default function Pages() {
               <List.Item extra={item.age}>{item.name}</List.Item>
             </SwipeAction>
           ))}
-      </List>
+        </List>
+      )}
     </>
   )
 }

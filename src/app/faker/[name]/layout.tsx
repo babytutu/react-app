@@ -24,15 +24,12 @@ export default function Demo({
 
   return (
     <>
-      <Tabs activeKey={activeKey} onChange={key => changeKey(key)}>
-        {resource.map((link: any) => (
-          <Tabs.Tab key={link.title} title={link.title}>
-          </Tabs.Tab>
+      <Tabs activeKey={activeKey} onChange={(key) => changeKey(key)}>
+        {resource.map((link: string) => (
+          <Tabs.Tab key={link} title={link}></Tabs.Tab>
         ))}
       </Tabs>
-      <div className='overflow-auto'>
-        {children}
-      </div>
+      <div className="overflow-auto">{children}</div>
     </>
   )
 }
