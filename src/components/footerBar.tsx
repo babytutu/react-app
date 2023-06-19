@@ -8,6 +8,7 @@ import {
   UnorderedListOutline,
   SmileOutline,
   FillinOutline,
+  SetOutline,
 } from 'antd-mobile-icons'
 
 const home: any[] = [
@@ -30,6 +31,11 @@ const home: any[] = [
     title: 'Form',
     to: '/form/',
     icon: <FillinOutline />,
+  },
+  {
+    title: 'Redux',
+    to: '/setting/',
+    icon: <SetOutline />,
   },
   // {
   //   title: 'faker',

@@ -11,13 +11,12 @@ import {
 } from 'antd-mobile'
 
 import { http } from '@/utils/http'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
+
+import { useAppSelector } from '@/app/hooks'
 
 export default function Pages() {
-  const person = {
-    name: '',
-    age: 18,
-  }
+  const state = useAppSelector((state) => state.form)
 
   const [list, setList] = useState([])
   const [loading, setLoading] = useState(false)
@@ -56,7 +55,7 @@ export default function Pages() {
       getItem()
     }
     setId('')
-    form.setFieldsValue(person)
+    form.setFieldsValue(state)
   }
 
   const onFinishFailed = () => {
@@ -72,7 +71,7 @@ export default function Pages() {
         form={form}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
-        initialValues={person}
+        initialValues={state}
         footer={
           <>
             <Button
@@ -127,7 +126,7 @@ export default function Pages() {
                   color: 'danger',
                   onClick: () => {
                     setId('')
-                    form.setFieldsValue(person)
+                    form.setFieldsValue(state)
                     Dialog.confirm({
                       content: '确定要删除吗？',
                     }).then((action) => {
@@ -152,7 +151,6 @@ export default function Pages() {
             </SwipeAction>
           ))}
       </List>
-      {person.name}
     </>
   )
 }
