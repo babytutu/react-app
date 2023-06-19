@@ -1,8 +1,13 @@
 /** @type {import('next').NextConfig} */
+const basePath = '/react-app'
+
 const nextConfig = {
   output: 'export',
-  basePath: '/react-app',
+  basePath,
   trailingSlash: true,
+  env: {
+    basePath,
+  },
 }
 
 module.exports = nextConfig
