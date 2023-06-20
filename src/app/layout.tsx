@@ -1,4 +1,3 @@
-import 'antd-mobile/es/global'
 import './globals.css'
 import { Metadata } from 'next'
 

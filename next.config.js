@@ -19,6 +19,7 @@ const nextConfig = {
     basePath,
   },
   generateBuildId: () => version,
+  transpilePackages: ['antd-mobile'],
 }
 
 module.exports = nextConfig
