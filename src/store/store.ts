@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import logger from 'redux-logger'
 
 import formReducer from './form/FormSlice'
+
 export const store = configureStore({
   reducer: {
     form: formReducer,

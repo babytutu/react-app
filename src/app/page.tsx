@@ -17,10 +17,14 @@ export default function Home() {
         </List.Item>
       ))}
       {home.map((link: any) => (
-        <List.Item key={link.title} onClick={() => window.open(link.link)}>
+        <List.Item
+          key={link.title}
+          onClick={() => router.push(`/link/?link=${link.link}`)}
+        >
           {link.title}
         </List.Item>
       ))}
+      <List.Item onClick={() => router.push('/abc')}>404</List.Item>
       <List.Item>
         <AutoCenter>
           <img src={process.env.basePath + '/xcx.png'} width={200} />

@@ -44,11 +44,11 @@ export function FooterBar() {
   const [activeKey, setActiveKey] = useState('')
   const pathname = usePathname()
   useEffect(() => {
-    setActiveKey(pathname.replace('/react-app', ''))
+    setActiveKey(pathname.replace(process.env.basePath || '', ''))
   }, [pathname])
   return (
-    <TabBar safeArea activeKey={activeKey} onChange={key => router.push(key)}>
-      {home.map(item => (
+    <TabBar safeArea activeKey={activeKey} onChange={(key) => router.push(key)}>
+      {home.map((item) => (
         <TabBar.Item key={item.to} icon={item.icon} title={item.title} />
       ))}
     </TabBar>

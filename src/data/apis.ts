@@ -1,1 +1,1 @@
-export const resource = ['addresses', 'books', 'companies', 'products', 'users', 'abc']
+export const resource = ['addresses', 'books', 'products', 'users']

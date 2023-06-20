@@ -1,11 +1,12 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { List } from 'antd-mobile'
+import { List, Dialog, Toast, Image } from 'antd-mobile'
 import { Common } from '@/components/common'
+import { copyText } from '@/utils/copy'
 
 export default function Macapp() {
-  const [data, setData] = useState([])
+  const [data, setData] = useState<Array<any>>([])
   const [isLoading, setLoading] = useState(true)
   useEffect(() => {
     setLoading(true)
@@ -26,7 +27,11 @@ export default function Macapp() {
           content: i.description
             .replace(/\n/g, '')
             .replace(/.*欢迎每日关注更新内容/, ''),
-          more: new Date(i.pubDate.replace(' &#43;0800', '')).toLocaleString(),
+          extra: new Date(i.pubDate.replace(' &#43;0800', '')).toLocaleString(),
+          link: i.link,
+          avatar: i.description
+            .replace(/\n/g, '')
+            .replace(/.*src="(https.*?)".*/, '$1'),
         }))
         setData(data)
         setLoading(false)
@@ -37,6 +42,19 @@ export default function Macapp() {
       })
   }, [])
 
+  function showLink(item: any) {
+    Dialog.confirm({
+      title: item.title,
+      content: item.content,
+      confirmText: '复制下载地址',
+      cancelText: '关闭',
+      onConfirm: () => {
+        const res = copyText(item.link)
+        res && Toast.show('复制成功')
+      },
+    })
+  }
+
   return (
     <>
       <Common loading={isLoading} isEmpty={data.length === 0} />
@@ -45,8 +63,11 @@ export default function Macapp() {
           {data.map((item: any) => (
             <List.Item
               key={item.id}
-              description={item.content}
-              title={item.more}
+              title={item.extra}
+              onClick={() => showLink(item)}
+              prefix={
+                <Image src={item.avatar} fit="cover" width={50} height={50} />
+              }
             >
               {item.title}
             </List.Item>

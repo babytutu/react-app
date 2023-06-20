@@ -1,6 +1,6 @@
 export const home: Array<any> = [
   {
-    title: 'Github',
+    title: 'Blog',
     link: 'https://babytutu.github.io/',
   },
   {
