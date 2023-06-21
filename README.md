@@ -265,6 +265,78 @@ jobs:
 
 ```
 
+## MDX
+
+You write markdown with embedded components through JSX
+
+[MDX](https://mdxjs.com/)
+
+### 安装依赖
+
+```bash
+yarn add @next/mdx @mdx-js/loader @mdx-js/react @types/mdx
+```
+
+src/mdx-components.tsx
+
+```ts
+import type { MDXComponents } from 'mdx/types'
+
+// This file allows you to provide custom React components
+// to be used in MDX files. You can import and use any
+// React component you want, including components from
+// other libraries.
+
+// This file is required to use MDX in `app` directory.
+export function useMDXComponents(components: MDXComponents): MDXComponents {
+  return {
+    // Allows customizing built-in components, e.g. to add styling.
+    // h1: ({ children }) => <h1 style={{ fontSize: "100px" }}>{children}</h1>,
+    ...components,
+  }
+}
+```
+
+### 更新配置
+
+next.config.js
+
+```js
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    mdxRs: true,
+  },
+}
+
+const withMDX = require('@next/mdx')()
+module.exports = withMDX(nextConfig)
+```
+
+### 新增mdx文件
+
+src/mdx/hell0.mdx
+
+```mdx
+import { NoticeBar } from 'antd-mobile'
+
+export const year = "Markdown is a lightweight markup language used to format text. It allows you to write using plain text syntax and convert it to structurally valid HTML. It's commonly used for writing content on websites and blogs."
+
+<NoticeBar content={year} color='alert' />
+```
+
+### 页面中加载
+
+page.tsx
+
+```tsx
+import HelloWorld from '@/mdx/hello.mdx'
+
+export default function Page () {
+  return <HelloWorld />
+}
+```
+
 ## 存在问题
 
 React官方推荐使用next框架，但是因为服务端渲染对于前端来说非必须，在next进行调整过程中，对纯静态导出不是很友好，已知2个比较影响使用的bug

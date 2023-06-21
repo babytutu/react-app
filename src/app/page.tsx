@@ -4,10 +4,14 @@ import { useRouter } from 'next/navigation'
 import { resource } from '@/data/apis'
 import { List, AutoCenter, Image } from 'antd-mobile'
 import { home } from '@/data/home'
+
+import HelloWorld from '@/mdx/hello.mdx'
+
 export default function Home() {
   const router = useRouter()
   return (
     <List header="fakerapi">
+      <HelloWorld />
       {resource.map((link: string) => (
         <List.Item
           key={link}

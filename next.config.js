@@ -21,6 +21,10 @@ const nextConfig = {
   generateBuildId: () => version,
   transpilePackages: ['antd-mobile'],
   reactStrictMode: true,
+  experimental: {
+    mdxRs: true,
+  },
 }
 
-module.exports = nextConfig
+const withMDX = require('@next/mdx')()
+module.exports = withMDX(nextConfig)
