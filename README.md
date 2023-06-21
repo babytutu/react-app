@@ -315,7 +315,7 @@ module.exports = withMDX(nextConfig)
 
 ### 新增mdx文件
 
-src/mdx/hell0.mdx
+src/mdx/hello.mdx
 
 ```mdx
 import { NoticeBar } from 'antd-mobile'
