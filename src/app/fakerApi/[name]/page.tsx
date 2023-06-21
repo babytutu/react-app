@@ -27,7 +27,7 @@ export default function Page({ params }: { params: { name: string } }) {
         setData([])
         setLoading(false)
       })
-  }, [])
+  }, [params.name])
   return (
     <>
       <Common loading={isLoading} isEmpty={data.length === 0} />

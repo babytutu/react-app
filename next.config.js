@@ -20,6 +20,7 @@ const nextConfig = {
   },
   generateBuildId: () => version,
   transpilePackages: ['antd-mobile'],
+  reactStrictMode: true,
 }
 
 module.exports = nextConfig

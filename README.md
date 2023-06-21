@@ -185,3 +185,89 @@ app/page.tsx
 
 import { Button } from 'antd-mobile'
 ```
+
+## 部署
+
+通过设置next.config.js可以实现静态代码导出，可部署到github上
+
+```js
+/** @type {import('next').NextConfig} */
+const { execSync } = require('child_process')
+const basePath = '/react-app'
+
+// 获取最后一次提交的commitID,处理异常报错
+let version
+try {
+  version = execSync('git rev-parse --short HEAD').toString().replace(/\n/, '')
+} catch (e) {
+  /* eslint-disable no-console */
+  console.warn('Getting revision FAILED. Maybe this is not a git project.')
+}
+
+const nextConfig = {
+  output: 'export',
+  basePath,
+  trailingSlash: true,
+  env: {
+    basePath,
+  },
+  generateBuildId: () => version,
+  transpilePackages: ['antd-mobile'],
+  reactStrictMode: true,
+}
+
+module.exports = nextConfig
+```
+
+- output，导出静态代码
+- basePath，对应到github的目录，如`https://xxx.github.io/xxx`
+- trailingSlash，保证路由'/'的准确
+- env，环境变量设置，在代码中可以通过`process.env.basePath`获取
+- generateBuildId，给代码添加版本号，可使用githash
+- reactStrictMode，严格模式，保证代码可靠性
+
+### workflow
+
+通过github-action实现代码更新后自动部署到GitHub-page
+
+以下代码效果为`main`分支代码变更后自动通过`yarn`打包代码并把out文件夹发布
+
+```yml
+name: Build and Deploy
+on:
+  push:
+    branches:
+      - main
+permissions:
+  contents: write
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
+
+      - name: Install and Build
+        run: |
+          yarn install --frozen-lockfile
+          yarn build
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: out
+
+```
+
+## 存在问题
+
+React官方推荐使用next框架，但是因为服务端渲染对于前端来说非必须，在next进行调整过程中，对纯静态导出不是很友好，已知2个比较影响使用的bug
+
+- 访问动态路由404[output: 'export' with use client in dynamic routes doesn't work](https://github.com/vercel/next.js/issues/48022)
+- 无法自定义404页面[not-found.js not work when use static HTML export](https://github.com/vercel/next.js/issues/51400)

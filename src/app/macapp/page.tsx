@@ -66,7 +66,13 @@ export default function Macapp() {
               title={item.extra}
               onClick={() => showLink(item)}
               prefix={
-                <Image src={item.avatar} fit="cover" width={50} height={50} />
+                <Image
+                  src={item.avatar}
+                  alt={item.title}
+                  fit="cover"
+                  width={50}
+                  height={50}
+                />
               }
             >
               {item.title}

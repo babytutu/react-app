@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { resource } from '@/data/apis'
-import { List, AutoCenter } from 'antd-mobile'
+import { List, AutoCenter, Image } from 'antd-mobile'
 import { home } from '@/data/home'
 export default function Home() {
   const router = useRouter()
@@ -24,10 +24,14 @@ export default function Home() {
           {link.title}
         </List.Item>
       ))}
-      <List.Item onClick={() => router.push('/abc')}>404</List.Item>
+      <List.Item onClick={() => router.push(`/fakerApi/books`)}>404</List.Item>
       <List.Item>
         <AutoCenter>
-          <img src={process.env.basePath + '/xcx.png'} width={200} />
+          <Image
+            alt="xcx"
+            src={process.env.basePath + '/xcx.png'}
+            width={200}
+          />
         </AutoCenter>
       </List.Item>
     </List>
