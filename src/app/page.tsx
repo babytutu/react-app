@@ -13,10 +13,7 @@ export default function Home() {
     <List header="fakerapi">
       <HelloWorld />
       {resource.map((link: string) => (
-        <List.Item
-          key={link}
-          onClick={() => router.push(`/faker/?name=${link}`)}
-        >
+        <List.Item key={link} onClick={() => router.push(`/fakerApi/${link}`)}>
           {link}
         </List.Item>
       ))}
@@ -28,7 +25,6 @@ export default function Home() {
           {link.title}
         </List.Item>
       ))}
-      <List.Item onClick={() => router.push(`/fakerApi/books`)}>404</List.Item>
       <List.Item>
         <AutoCenter>
           <Image

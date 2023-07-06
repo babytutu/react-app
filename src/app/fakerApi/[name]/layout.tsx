@@ -1,13 +1,10 @@
-'use client'
-
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { Tabs } from 'antd-mobile'
 import { resource } from '@/data/apis'
+import { TabList } from '@/components/tabList'
 
 export async function generateStaticParams() {
-  // Props returned will be passed to the page component
-  return resource.map((i: any) => ({ name: i.name }))
+  return resource.map((i: string) => ({
+    name: i,
+  }))
 }
 
 export default function Demo({
@@ -19,27 +16,9 @@ export default function Demo({
     name: string
   }
 }) {
-  const router = useRouter()
-  const [activeKey, setActiveKey] = useState(params.name)
-
-  function changeKey(key: string) {
-    setActiveKey(key)
-    router.push(`/fakerApi/${key}`)
-  }
-
   return (
     <div className="flex flex-col overflow-hidden height-100">
-      <Tabs
-        activeKey={activeKey}
-        onChange={(key) => changeKey(key)}
-        style={{
-          '--title-font-size': '13px',
-        }}
-      >
-        {resource.map((link: string) => (
-          <Tabs.Tab key={link} title={link}></Tabs.Tab>
-        ))}
-      </Tabs>
+      <TabList name={params.name} />
       <div className="overflow-auto">{children}</div>
     </div>
   )
