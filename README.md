@@ -51,30 +51,30 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface FormState {
-  name: string
-  age: number
+  type: string
+  cost: number
 }
 
 const initialState: FormState = {
-  name: 'test',
-  age: 10,
+  type: 'test',
+  cost: 10,
 }
 
 export const FormSlice = createSlice({
   name: 'formData',
   initialState,
   reducers: {
-    setName: (state, action: PayloadAction<string>) => {
-      state.name = action.payload
+    setType: (state, action: PayloadAction<string>) => {
+      state.type = action.payload
     },
-    setAge: (state, action: PayloadAction<number>) => {
-      state.age = action.payload
+    setCost: (state, action: PayloadAction<number>) => {
+      state.cost = action.payload
     },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setName, setAge } = FormSlice.actions
+export const { setType, setCost } = FormSlice.actions
 
 export default FormSlice.reducer
 ```
@@ -144,13 +144,13 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 
 ```tsx
 import { useAppSelector, useAppDispatch } from '@/app/hooks'
-import { setName } from '@/store/form/FormSlice'
+import { setType } from '@/store/form/FormSlice'
 
 export default function Page() {
   const state = useAppSelector((state) => state.form)
   const dispatch = useAppDispatch()
   function setData (name: string) {
-    dispatch(setName(name))
+    dispatch(setType(name))
   }
   return <div>{state.name}</div>
 }

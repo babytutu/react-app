@@ -6,13 +6,17 @@ import {
   Input,
   Dialog,
   Toast,
-  Stepper,
+  Radio,
+  Space,
   List,
   SwipeAction,
+  DatePicker,
 } from 'antd-mobile'
+import dayjs from 'dayjs'
+import type { DatePickerRef } from 'antd-mobile/es/components/date-picker'
 
 import { http } from '@/utils/http'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, RefObject } from 'react'
 
 import { useAppSelector } from '@/app/hooks'
 import { Common } from '@/components/common'
@@ -26,30 +30,35 @@ export default function Pages() {
   const [id, setId] = useState('')
   const [isLoading, setIsLoading] = useState(true)
 
+  const now = new Date()
+
   useEffect(() => {
     getItem()
   }, [])
 
   const getItem = () => {
-    http('https://87tetwnrqe.hk.aircode.run/getItem').then(
-      ({ success, result }) => {
-        if (success) setList(result || [])
-        setIsLoading(false)
-      }
-    )
+    http('https://5ykenqzacs.hk.aircode.run/getAllList', {
+      type: 'test',
+    }).then(({ success, result }) => {
+      if (success) setList(result || [])
+      setIsLoading(false)
+    })
   }
   const onFinish = async () => {
     if (loading) return
     const values = form.getFieldsValue()
+    const data = {
+      ...values,
+      time: dayjs(values.time).format('YYYY/MM/DD'),
+    }
     setLoading(true)
     const { success } = await http(
-      `https://87tetwnrqe.hk.aircode.run/${id ? 'editItem' : 'addItem'}`,
-      id
-        ? {
-            id,
-            data: values,
-          }
-        : values
+      `https://5ykenqzacs.hk.aircode.run/${id ? 'editItem' : 'addItem'}`,
+      {
+        id,
+        data: data,
+        type: 'test',
+      }
     )
     setLoading(false)
     if (success) {
@@ -86,20 +95,44 @@ export default function Pages() {
           </>
         }
       >
-        <Form.Header>表单提交</Form.Header>
+        <Form.Header>简易账本</Form.Header>
         <Form.Item
-          name="name"
-          label="姓名"
-          rules={[{ required: true, message: '姓名不能为空' }]}
+          name="type"
+          label="类型"
+          rules={[{ required: true, message: '类型不能为空' }]}
         >
-          <Input placeholder="请输入姓名" clearable />
+          <Radio.Group>
+            <Space>
+              <Radio value="购物">购物</Radio>
+              <Radio value="美食">美食</Radio>
+              <Radio value="理发">理发</Radio>
+            </Space>
+          </Radio.Group>
         </Form.Item>
         <Form.Item
-          name="age"
-          label="年龄"
-          rules={[{ required: true, message: '年龄不能为空' }]}
+          name="time"
+          label="时间"
+          trigger="onConfirm"
+          rules={[{ required: true, message: '时间不能为空' }]}
+          onClick={(e, datePickerRef: RefObject<DatePickerRef>) => {
+            datePickerRef.current?.open()
+          }}
         >
-          <Stepper max={999} />
+          <DatePicker max={now}>
+            {(value) =>
+              value ? dayjs(value).format('YYYY/MM/DD') : '请选择日期'
+            }
+          </DatePicker>
+        </Form.Item>
+        <Form.Item
+          name="cost"
+          label="金额"
+          rules={[{ required: true, message: '金额不能为空' }]}
+        >
+          <Input placeholder="请输入金额" type="number" clearable />
+        </Form.Item>
+        <Form.Item name="content" label="说明">
+          <Input placeholder="请输入说明" clearable />
         </Form.Item>
       </Form>
       <Common loading={isLoading} isEmpty={list.length === 0} />
@@ -115,8 +148,10 @@ export default function Pages() {
                   color: 'warning',
                   onClick: () => {
                     form.setFieldsValue({
-                      name: item.name,
-                      age: item.age,
+                      type: item.type,
+                      time: new Date(item.time),
+                      cost: item.cost,
+                      content: item.content,
                     })
                     setId(item._id)
                   },
@@ -132,8 +167,9 @@ export default function Pages() {
                       content: '确定要删除吗？',
                     }).then((action) => {
                       if (action) {
-                        http('https://87tetwnrqe.hk.aircode.run/removeItem', {
+                        http('https://5ykenqzacs.hk.aircode.run/removeItem', {
                           id: item._id,
+                          type: 'test',
                         }).then((res) => {
                           if (res.success) {
                             Toast.show('操作成功')
@@ -146,7 +182,13 @@ export default function Pages() {
                 },
               ]}
             >
-              <List.Item extra={item.age}>{item.name}</List.Item>
+              <List.Item
+                extra={item.cost}
+                description={item.content}
+                title={item.time}
+              >
+                {item.type}
+              </List.Item>
             </SwipeAction>
           ))}
         </List>

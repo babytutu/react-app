@@ -1,8 +1,8 @@
 'use client'
 
 import { useAppSelector, useAppDispatch } from '@/app/hooks'
-import { setName, setAge } from '@/store/form/FormSlice'
-import { Form, Button, Input, Toast, Stepper } from 'antd-mobile'
+import { setType, setCost } from '@/store/form/FormSlice'
+import { Form, Button, Input, Toast, Radio, Space } from 'antd-mobile'
 
 export default function Page() {
   const state = useAppSelector((state) => state.form)
@@ -15,9 +15,9 @@ export default function Page() {
 
   const onFinish = async () => {
     const values = form.getFieldsValue()
-    const { name, age } = values
-    dispatch(setName(name))
-    dispatch(setAge(age))
+    const { type, cost } = values
+    dispatch(setType(type))
+    dispatch(setCost(cost))
     Toast.show('设置成功')
   }
 
@@ -37,20 +37,22 @@ export default function Page() {
           </>
         }
       >
-        <Form.Header>设置表单默认值</Form.Header>
+        <Form.Header>设置默认值</Form.Header>
         <Form.Item
-          name="name"
-          label="姓名"
-          rules={[{ required: true, message: '姓名不能为空' }]}
+          name="type"
+          label="类型"
+          rules={[{ required: true, message: '类型不能为空' }]}
         >
-          <Input placeholder="请输入姓名" clearable />
+          <Radio.Group>
+            <Space>
+              <Radio value="购物">购物</Radio>
+              <Radio value="美食">美食</Radio>
+              <Radio value="理发">理发</Radio>
+            </Space>
+          </Radio.Group>
         </Form.Item>
-        <Form.Item
-          name="age"
-          label="年龄"
-          rules={[{ required: true, message: '年龄不能为空' }]}
-        >
-          <Stepper max={999} />
+        <Form.Item name="cost" label="金额">
+          <Input placeholder="请输入金额" type="number" clearable />
         </Form.Item>
       </Form>
     </div>
