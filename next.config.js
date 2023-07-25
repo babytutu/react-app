@@ -14,7 +14,6 @@ try {
 const nextConfig = {
   output: 'export',
   basePath,
-  trailingSlash: true,
   env: {
     basePath,
   },
