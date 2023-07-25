@@ -19,17 +19,17 @@ const home: any[] = [
   },
   {
     title: 'MacApp',
-    to: '/macapp/',
+    to: '/macapp',
     icon: <UnorderedListOutline />,
   },
   {
     title: 'Form',
-    to: '/form/',
+    to: '/form',
     icon: <FillinOutline />,
   },
   {
     title: 'Redux',
-    to: '/setting/',
+    to: '/setting',
     icon: <SetOutline />,
   },
   // {
@@ -41,10 +41,11 @@ const home: any[] = [
 
 export function FooterBar() {
   const router = useRouter()
-  const [activeKey, setActiveKey] = useState('')
+  const [activeKey, setActiveKey] = useState('/')
   const pathname = usePathname()
   useEffect(() => {
-    setActiveKey(pathname.replace(process.env.basePath || '', ''))
+    const path = pathname.replace(process.env.basePath || '', '')
+    setActiveKey(path || '/')
   }, [pathname])
   return (
     <TabBar safeArea activeKey={activeKey} onChange={(key) => router.push(key)}>
